@@ -13,14 +13,17 @@ def main():
     'handles all the data processing'
     log = open('cardlog.txt', 'w')
     try:
-        ccfile = open('carddata.txt', 'r')
-    except IOError, e:
-        log.write('no txns this month\n')
-        log.close()
-        return
+        try:
+            ccfile = open('carddata.txt', 'r')
+            txns = ccfile.readlines()  #readlines()读取所有数据
+        except IOError:
+            log.write('no txns this month\n')
+            log.close()
+    finally:
+        ccfile.close()
 
-    txns = ccfile.readlines()  #readlines()读取所有数据
-    ccfile.close()
+    # txns = ccfile.readlines()  #readlines()读取所有数据
+    # ccfile.close()
     total = 0.00
     log.write('account log:\n')
 
